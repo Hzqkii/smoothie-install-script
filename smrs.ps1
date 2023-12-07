@@ -1,6 +1,7 @@
 param ( [string]$SourceExe, [string]$ArgumentsToSourceExe, [string]$DestinationPath )
 
-$SHELLSENDTO = "$env:APPDATA\Microsoft\Windows\SendTo" #shell:sendto
+$SHELLSENDTO = [System.Environment]::GetFolderPath('SendTo') #shell:sendto
+echo $SHELLSENDTO
 $shortcutPath = "$SHELLSENDTO\Smoothie-RS.lnk"
 if (Get-Command -Name "ffmpeg" -ErrorAction SilentlyContinue) { #check whether ffmpeg is installed or not
     Write-Host "FFmpeg is installed"
@@ -31,9 +32,9 @@ Expand-Archive -LiteralPath 'smrs.zip' -DestinationPath $SMOOTHIE_DIR
 cd $SMOOTHIE_DIR
 $SMOOTHIE_EXE = "$HOME\.smoothie-rs\smoothie-rs\bin\smoothie-rs.exe"
 
-if (-not $SourceExe) { $SourceExe = $SMOOTHIE_EXE }
-if (-not $ArgumentsToSourceExe) { $ArgumentsToSourceExe = "-v -i" }
-if (-not $DestinationPath) { $DestinationPath = $shortcutPath }
+if (!$SourceExe) { $SourceExe = $SMOOTHIE_EXE }
+if (!$ArgumentsToSourceExe) { $ArgumentsToSourceExe = "-v -i" }
+if (!$DestinationPath) { $DestinationPath = $shortcutPath }
 
 $WshShell = New-Object -comObject WScript.Shell
 $Shortcut = $WshShell.CreateShortcut($DestinationPath)
