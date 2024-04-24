@@ -11,10 +11,10 @@ if (Get-Command -Name "ffmpeg" -ErrorAction SilentlyContinue) { #check whether f
     
     if (Get-Command -Name "ffmpeg" -ErrorAction SilentlyContinue) { #check whether ffmpeg is installed
     Write-Host "FFmpeg is installed."
-} else {
-    Write-Error -Message "Couldn't install FFmpeg"
-    exit
-}
+    } else {
+        Write-Error -Message "Couldn't install FFmpeg"
+        exit
+    }
 }
 
 
